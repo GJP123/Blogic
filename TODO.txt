@@ -58,7 +58,7 @@ Stylying of templates
 homepage / - where to route to?
 
 ==== other features =====
----Uncategoried---
+---Uncategorised---
 	none
 
 /#username/
