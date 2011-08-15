@@ -1,0 +1,90 @@
+==== Current Targets ====
+
+---Urls---
+/#username/=>TEMPLATE#1 - per user url & home page - display list of blogs default sort order ( create date)
+/#username/admin/=>TEMPLATE#1 - admin page for access all blogs published and unpublished 
+/#username/#id/=>TEMPLATE#2 - displays blog #id 
+/#username/#id/edit/=>TEMPLATE#3 - displays blog #id in textarea
+---Templates---
+TEMPLATE#1(username) OR 404("user #username not found")
+	if(loggedIn):
+		TextBox('Login')=>/#username/admin/ 
+	else:
+		Label("Logged in as #username")
+	
+	if(loggedIn):
+		Toggle_Button('View Public'=>/#username/ OR 'View Admin'=>/#username/admin/)
+
+	'No Data' msg OR ...
+	Blogs for #username
+	Table(
+		#blog_text:wrappped[1..200] 
+		[#date_modified OR #published_date]
+		'modified' by #username
+		if(loggedIn) 
+			Button('Edit')=>/#username/#id/edit/
+			Button('Delete')=>/#username/#id/)
+
+TEMPLATE#2(username, id) OR 404('blog #id not found'):
+	if(#id=NOT_FOUND OR (#loggedIn != #username  AND !#published_date)):
+		404('blog #id not found')
+	#title by #username ([not yet] Published [on #published_date])
+	Link('Next Blog'=>/#username/#id++/)
+	Link('View All'=>PREVIOUS_LINK)
+	#blog_text
+	modified_date
+	if(#published_date):
+		#published_date
+	if(#loggedIn == #username):
+		Button('Edit')=>/#username/#id/edit/
+		Button('Publish')=>/#username/#id/
+
+TEMPLATE#3(username, id)
+	if(#id=NOT_FOUND OR (#loggedIn != #username  AND !#published_date)):
+		404('blog #id not found')
+	Edit(#title)
+	Label(#username)
+	Label([not yet] Published [on #published_date])
+	TextArea(#blog_text)
+	Button('Save')=>/#username/#id/save=>/#username/#id/
+	Button('Cancel')=>/#username/#id/
+
+==== NEXT ====
+
+Stylying of templates
+
+==== Debt =======
+
+homepage / - where to route to?
+
+==== other features =====
+---Uncategoried---
+	none
+
+/#username/
+	add paging back in time (https://docs.djangoproject.com/en/dev/topics/pagination/)
+	add sidebar (flow layout) displaying date tree ?
+	Selection (checkboxes) and multiple commands
+
+/#username/#id
+	Comments
+	use markup library to edit markup text 
+
+Maybe
+/#username/
+	Text Search
+	Tag Cloud
+	Filter by Tag
+/#username/#id/
+	Add tags
+	
+Unlikedly			
+	RSS
+
+==== DONE ====
+Model
+	username (pk)
+	create_date
+	modify_date
+	blog_text
+	public_date
