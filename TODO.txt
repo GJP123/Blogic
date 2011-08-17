@@ -51,11 +51,14 @@ TEMPLATE#3(username, id)
 
 ==== NEXT ====
 
+Get current working
+Load Data
 Stylying of templates
 
 ==== Debt =======
 
 homepage / - where to route to?
+should URLs end with /   ?
 
 ==== other features =====
 ---Uncategorised---
