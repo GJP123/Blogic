@@ -10,6 +10,8 @@
 
 {% block content %}
 <div class="box">
+
+
 	<h1><span class="white">{{ blog.blog_title }}</span></h1>
 
 	<p class="post-by">Posted by <a href="/{{username}}/">{{ blog.username }}</a>
@@ -18,11 +20,27 @@
     <p>{{ blog.blog_text }}
     </p>
 
+	<p>
+		<form style='display:inline' action="/{{username}}/{{blog.pk}}/edit/" method="get">
+	    	<input type="submit" value="Edit" />
+		</form>
+
+		<form style='display:inline' action="/{{username}}/{{blog.pk}}/publish/" method="get">
+	    	<input type="submit" value="Publish" />
+		</form>
+
+		<form style='display:inline' action="/{{username}}/{{blog.pk}}/delete/" method="get">
+	    	<input type="submit" value="Delete" />
+		</form>
+	</p>
+
 	<p class="post-footer align-right">					
+
 		<a href="index.html" class="comments">Comments (7)</a>
 		<span class="date">Published on {{ blog.published_date }}</span>	
 	</p>
 
 </div>
+
 {% endblock %}
 

@@ -29,13 +29,13 @@
 				{{ blog.blog_text|truncatewords:"25" }}
 			</td>
 			<td>
-				{{ blog.created_date }}
+				{{ blog.create_date }}
 			</td>
 			<td>
-				{{ blog.modified_date }}
+				{{ blog.modify_date }}
 			</td>
 			<td>
-				{{ blog.published_date }} <!-- |stringformat:"%x<br/>%X" -->
+				{{ blog.published_date}} <!--|stringformat:"%x<br/>%X"-->
 			</td>
 		</tr>
 		{% empty %}

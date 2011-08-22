@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core.urlresolvers import reverse
 from django.template import RequestContext, Context, loader
-from blog.models import Blog
+from blog.models import Blog, BlogForm
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponse
 from django.conf.urls.defaults import *
 from django.shortcuts import *
+from datetime import *
 
 def list_public_blogs(request, username):
     blogs = Blog.objects.filter(username__exact=username, published_date__isnull=False).order_by('-published_date')
@@ -15,6 +16,7 @@ def list_public_blogs(request, username):
                                  }
                                 ,context_instance=RequestContext(request))
 
+
 def list_all_blogs(request, username):
     blogs = Blog.objects.filter(username__exact=username)
     return render_to_response(  'blog/list_all_blogs.html'
@@ -23,6 +25,7 @@ def list_all_blogs(request, username):
                                     'username':username
                                  }
                                 ,context_instance=RequestContext(request))
+
 
 def view_blog(request, username, blog_id):
     blog = Blog.objects.get(pk=blog_id)
@@ -35,25 +38,21 @@ def view_blog(request, username, blog_id):
 
 
 def edit_blog(request, username, blog_id = None):
-    if(POST):
-        #loadform
-        #make model
-        #save model
-        return render_to_response(  'blog/view_blog.html'
-                                    ,{
-                                        'blog': blog,
-                                        'username':username
-                                     }
-                                    ,context_instance=RequestContext(request))
+    if request.method == 'POST':
+        form = BlogForm(request.POST)
+        if form.is_valid():            
+            form.save()        
+            return redirect('blog.views.view_blog', username=username, blog_id=form.pk)
     else:
         if(blog_id is None): 
             blog = None
         else:
             blog = get_object_or_404(Blog, pk=blog_id)
+        form = BlogForm(blog)
         return render_to_response(  'blog/edit_blog.html'
                                     ,{
-                                        'blog': blog,
-                                        'username':username                                    
+                                        'form': form,
+                                        'username':username,
                                      }
                                     ,context_instance=RequestContext(request))
 
@@ -61,22 +60,17 @@ def edit_blog(request, username, blog_id = None):
 def delete_blog(request, username, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
     blog.delete()
-    return list_all_blogs(request, username)
+    return redirect('blog.views.list_all_blogs', username=username)
 
 
 def publish_blog(request, username, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)
-    if (blog.publish is None): 
-        blog.publish = datetime.now()
+    if (blog.published_date is None): 
+        blog.published_date = datetime.now()
     else: 
-        blog.publish = None
+        blog.published_date = None
     blog.save()
-    return render_to_response(  'blog/view_blog.html'
-                                ,{
-                                    'blog': blog,
-                                    'username':username
-                                 }
-                                ,context_instance=RequestContext(request))
+    return redirect('blog.views.view_blog', username=username, blog_id=blog_id)
 
 
 

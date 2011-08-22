@@ -1,12 +1,37 @@
-EDIT BLOG
-<div>
-<ul>
-	<li>{{ blog.pk }}</li>
-    <li>{{ blog.blog_title }}</li>
-    <li>{{ blog.username }}</li>
-    <li>{{ blog.create_date }}</li>
-    <li>{{ blog.modify_date }}</li>
-    <li>{{ blog.published_date }}</li>
-    <li>{{ blog.blog_text }}</li>
-<ul>
+{% extends "base.html" %}
+
+{% block title %}VIEW BLOG for {{username}}{% endblock %}
+
+
+{% block sidebar_previous_posts %}
+	Still hoping to put a index of dates here
+{% endblock %}
+
+
+{% block content %}
+<div class="box">
+
+	<p class="post-by">Posted by <a href="/{{username}}/">{{ username }}</a>
+	</p>
+
+	{% if form.pk = None %}
+	<form action="/{{username}}/new/" method="post">
+	{% else %}
+	<form action="/{{username}}/{{form.pk}}/edit/" method="post">
+	{% endif %}
+	{{ form.as_p }}
+	
+	<input type="submit" value="Submit" />
+	<input type="submit" value="Cancel" />
+	</form>	
+
+	<p class="post-footer align-right">					
+
+		<a href="index.html" class="comments">Comments (7)</a>
+	</p>
+
 </div>
+
+{% endblock %}
+
+

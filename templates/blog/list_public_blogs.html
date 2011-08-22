@@ -11,15 +11,17 @@
 {% block content %}
 {% for blog in blogs %}
 <div class="box">
-	<h1><a href="/{{username}}/{{ blog.pk }}"><span class="white">{{ blog.blog_title }}</span></a></h1>
+	<!--Hoped to use the following for the href but can't get it to work {\% url blog.views.view_blog blog_id=blog.pk \%}-->
+	<h1><a href="/{{username}}/{{blog.pk }}/"><span class="white">{{ blog.blog_title }}</span></a></h1>
 
 	<p class="post-by">Posted by <a href="/{{username}}/">{{ blog.username }}</a>
 	</p>
 
-    <p>{{ blog.blog_text }}
+    <p>{{ blog.blog_text|truncatewords:"75" }}
     </p>
 
 	<p class="post-footer align-right">					
+		<a href="/{{username}}/{{ blog.pk }}" class="readmore">Read more</a>
 		<a href="index.html" class="comments">Comments (7)</a>
 		<span class="date">Published on {{ blog.published_date }}</span>	
 	</p>
