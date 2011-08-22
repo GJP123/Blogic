@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}VIEW BLOG for {{username}}{% endblock %}
+{% block title %}LIST PUBLISHED BLOGS for {{username}}{% endblock %}
 
 
 {% block sidebar_previous_posts %}
@@ -9,8 +9,9 @@
 
 
 {% block content %}
+{% for blog in blogs %}
 <div class="box">
-	<h1><span class="white">{{ blog.blog_title }}</span></h1>
+	<h1><a href="/{{username}}/{{ blog.pk }}"><span class="white">{{ blog.blog_title }}</span></a></h1>
 
 	<p class="post-by">Posted by <a href="/{{username}}/">{{ blog.username }}</a>
 	</p>
@@ -24,5 +25,11 @@
 	</p>
 
 </div>
+{% empty %}
+<div class="box">
+<p>Sorry, no blogs published yet - Get writing!
+</p>
+</div>
+{% endfor %}
 {% endblock %}
 
