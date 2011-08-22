@@ -38,19 +38,28 @@ def view_blog(request, username, blog_id):
 
 
 def edit_blog(request, username, blog_id = None):
-    if request.method == 'POST':
-        form = BlogForm(request.POST)
-        if form.is_valid():            
-            form.save()        
-            return redirect('blog.views.view_blog', username=username, blog_id=form.pk)
+    if request.method == 'POST':        
+        if blog_id: 
+            blog = Blog.objects.get(pk=blog_id)
+            form = BlogForm(request.POST, instance=blog)                                  
+        else:
+            form = BlogForm(request.POST)
+            form.create_date = datetime.now()
+        form.create_date = datetime.now()
+        form.modify_date = datetime.now()        
+        form.published_date = None
+        if form.is_valid():  
+            form.save()                
+            return redirect('blog.views.view_blog', username=username, blog_id=blog_id)
     else:
-        if(blog_id is None): 
-            blog = None
+        if blog_id is None : 
+            form = BlogForm()
         else:
             blog = get_object_or_404(Blog, pk=blog_id)
-        form = BlogForm(blog)
+            form = BlogForm(instance=blog)
         return render_to_response(  'blog/edit_blog.html'
                                     ,{
+                                        'blog_id': blog_id,
                                         'form': form,
                                         'username':username,
                                      }

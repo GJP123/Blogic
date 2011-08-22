@@ -10,10 +10,12 @@ class Blog(models.Model):
 	blog_text=models.TextField()
 	published_date = models.DateTimeField('date published', null=True)
 
-
-
+	def __unicode__(self):
+		return self.name
+		
 class BlogForm(ModelForm):
     class Meta:
-        model = Blog	
+        model = Blog
+        fields = ('blog_title', 'blog_text')	
 
 

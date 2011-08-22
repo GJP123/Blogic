@@ -14,11 +14,12 @@
 	<p class="post-by">Posted by <a href="/{{username}}/">{{ username }}</a>
 	</p>
 
-	{% if form.pk = None %}
-	<form action="/{{username}}/new/" method="post">
+	{% if blog_id %}
+	<form action="/{{username}}/{{blog_id}}/edit/" method="post">
 	{% else %}
-	<form action="/{{username}}/{{form.pk}}/edit/" method="post">
+	<form action="/{{username}}/new/" method="post">
 	{% endif %}
+
 	{{ form.as_p }}
 	
 	<input type="submit" value="Submit" />
