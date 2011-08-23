@@ -16,16 +16,19 @@
 
 	{% if blog_id %}
 	<form action="/{{username}}/{{blog_id}}/edit/" method="post">
+		{{ form.as_p }}
+		<input type="image" style='background:none;border:none;' src='/static/images/Edit.png' value="Submit" alt="Submit">
+		<a href="/{{username}}/{{blog_id}}/"><img style='background:none;border:none;' src='/static/images/Cancel.png'/></a>
+	</form>		
 	{% else %}
 	<form action="/{{username}}/new/" method="post">
+		{{ form.as_p }}	
+		<input type="image" style='background:none;border:none;' src='/static/images/Edit.png' value="Submit" alt="Submit">
+		<a href="/{{username}}/all/"><img style='background:none;border:none;' src='/static/images/Cancel.png'/></a>
+	</form>		
 	{% endif %}
 
-	{{ form.as_p }}
 	
-	<input type="submit" value="Submit" />
-	<input type="submit" value="Cancel" />
-	</form>	
-
 	<p class="post-footer align-right">					
 
 		<a href="index.html" class="comments">Comments (7)</a>

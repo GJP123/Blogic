@@ -21,17 +21,15 @@
     </p>
 
 	<p>
-		<form style='display:inline' action="/{{username}}/{{blog.pk}}/edit/" method="get">
-	    	<input type="submit" value="Edit" />
-		</form>
-
-		<form style='display:inline' action="/{{username}}/{{blog.pk}}/publish/" method="get">
-	    	<input type="submit" value="Publish" />
-		</form>
-
-		<form style='display:inline' action="/{{username}}/{{blog.pk}}/delete/" method="get">
-	    	<input type="submit" value="Delete" />
-		</form>
+		<a href="/{{username}}/{{blog.pk}}/edit">
+			<img style='background:none;border:none;' src='/static/images/Edit.png'/>
+		</a>
+		<a href="/{{username}}/{{blog.pk}}/publish">
+			<img style='background:none;border:none;' src='/static/images/Publish.png'/>
+		</a>
+		<a href="/{{username}}/{{blog.pk}}/delete">
+			<img style='background:none;border:none;' src='/static/images/Delete.png'/>
+		</a>
 	</p>
 
 	<p class="post-footer align-right">					

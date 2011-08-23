@@ -44,8 +44,8 @@ def edit_blog(request, username, blog_id = None):
             form = BlogForm(request.POST, instance=blog)                                  
         else:
             form = BlogForm(request.POST)
-            form.create_date = datetime.now()
-        form.create_date = datetime.now()
+            form.create_date = datetime.now()            
+            form.username = username            
         form.modify_date = datetime.now()        
         form.published_date = None
         if form.is_valid():  
@@ -57,13 +57,13 @@ def edit_blog(request, username, blog_id = None):
         else:
             blog = get_object_or_404(Blog, pk=blog_id)
             form = BlogForm(instance=blog)
-        return render_to_response(  'blog/edit_blog.html'
-                                    ,{
-                                        'blog_id': blog_id,
-                                        'form': form,
-                                        'username':username,
-                                     }
-                                    ,context_instance=RequestContext(request))
+    return render_to_response(  'blog/edit_blog.html'
+                                ,{
+                                    'blog_id': blog_id,
+                                    'form': form,
+                                    'username':username,
+                                 }
+                                ,context_instance=RequestContext(request))
 
 
 def delete_blog(request, username, blog_id):

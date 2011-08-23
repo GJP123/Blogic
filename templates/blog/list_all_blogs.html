@@ -11,7 +11,11 @@
 {% block content %}
 <div class="box">
 
-	<h1>All blogs for {{ username }}</h1>							
+	<h1>All blogs for {{ username }} 
+		<a class='align-right' href="/{{username}}/new/">
+		<img style='background:none;' src='/static/images/New.png'/>
+		</a> 
+	</h1>							
 	
 	<table width="100%">
 		<tr>
