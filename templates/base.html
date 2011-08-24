@@ -10,7 +10,7 @@
 <meta name="Distribution" content="Global" />
 <meta name="Robots" content="index,follow" />		
 
-<!-- I realise that I should be using '{{ STATIC_URL }}'' here but can't seem to get it to work -->
+<!-- I realise that I should be using '\{\{ STATIC_URL \}\}'' here but can't seem to get it to work -->
 
 <link rel="stylesheet" href="/static/images/BluePigment.css" type="text/css" />
 
@@ -41,9 +41,9 @@
 	<div id="nav-wrap"><div id="nav">
 		
 		<ul>
-			<li id="current"><a href="/">Home</a></li>
-			<li id="public"><a href="/{{username}}/public/">Public</a></li>
-			<li id="all"><a href="/{{username}}/all/">All</a></li>
+			<li><a href="/">Home</a></li>
+			<li><a href="/{{username}}/public/">Public</a></li>
+			<li><a href="/{{username}}/all/">All</a></li>
 			<li><a href="">About</a></li>			
 		</ul>
 	

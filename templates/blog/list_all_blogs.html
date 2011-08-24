@@ -2,29 +2,29 @@
 
 {% block title %}LIST ALL BLOGS for {{username}}{% endblock %}
 
-
 {% block sidebar_previous_posts %}
 	Still hoping to put a index of dates here
 {% endblock %}
-
 
 {% block content %}
 <div class="box">
 
 	<h1>All blogs for {{ username }} 
 		<a class='align-right' href="/{{username}}/new/">
-		</a> 
 		<img style='background:none;float:right' src='/static/images/New.png'/>			
+		</a> 
 	</h1>							
 		
-	<table width="100%">
+		{% for blog in blogs %}
+		{% if forloop.first %}
+		<table width="100%">
 		<tr>
 			<th style="width:65%" class="first">Post</th>
 			<th>Created</th>
 			<th>Modified</th>
 			<th>Published</th>
 		</tr>
-		{% for blog in blogs %}
+		{% endif %}
 		<tr class="{% cycle 'row-a' 'row-b' %}">
 			<td>
 				<a href="/{{username}}/{{ blog.pk }}">
@@ -42,11 +42,13 @@
 				{{ blog.published_date}} <!--|stringformat:"%x<br/>%X"-->
 			</td>
 		</tr>
+		{% if forloop.last %}
+		</table>
+		{% endif %}
 		{% empty %}
 		<p>Sorry, no blogs yet - Get writing!
 		</p>
 		{% endfor %}		
-	</table>
 
 </div>
 
