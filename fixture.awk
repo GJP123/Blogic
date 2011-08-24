@@ -8,7 +8,7 @@ BEGIN {
 
 {
 
-    createdate = int(start2011+(rand()*oneyear));
+    createdate = int(start2011+(rand()*oneyear/2));
 
     modifydate = int(createdate + (secperday * 31 * rand()))
     publishdate = int(modifydate + (secperday * 31 * rand()))

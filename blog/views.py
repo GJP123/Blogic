@@ -18,7 +18,7 @@ def list_public_blogs(request, username):
 
 
 def list_all_blogs(request, username):
-    blogs = Blog.objects.filter(username__exact=username)
+    blogs = Blog.objects.filter(username__exact=username).order_by('-modify_date')
     return render_to_response(  'blog/list_all_blogs.html'
                                 ,{
                                     'blogs': blogs,
@@ -75,11 +75,12 @@ def delete_blog(request, username, blog_id):
 
 
 def publish_blog(request, username, blog_id):
-    blog = get_object_or_404(Blog, pk=blog_id)
+    blog = get_object_or_404(Blog, pk=blog_id)    
     if (blog.published_date is None): 
         blog.published_date = datetime.now()
     else: 
         blog.published_date = None
+    blog.modify_date = datetime.now()
     blog.save()
     return redirect('blog.views.view_blog', username=username, blog_id=blog_id)
 
