@@ -2,7 +2,6 @@
 
 {% block title %}VIEW BLOG for {{username}}{% endblock %}
 
-
 {% block sidebar_previous_posts %}
 	Still hoping to put a index of dates here
 {% endblock %}
@@ -10,7 +9,6 @@
 
 {% block content %}
 <div class="box">
-
 
 	<h1><span class="white">{{ blog.blog_title }}</span></h1>
 
@@ -20,7 +18,7 @@
     <p>{{ blog.blog_text }}
     </p>
 
-	<p>
+	<div style='float:right'>
 		<a href="/{{username}}/{{blog.pk}}/edit">
 			<img style='background:none;border:none;' src='/static/images/Edit.png'/>
 		</a>
@@ -30,11 +28,12 @@
 		<a href="/{{username}}/{{blog.pk}}/delete">
 			<img style='background:none;border:none;' src='/static/images/Delete.png'/>
 		</a>
-	</p>
+	</div>
+	<br/><br/>
 
 	<p class="post-footer align-right">					
 
-		<a href="index.html" class="comments">Comments (7)</a>
+		<a href="" class="comments">Comments (7)</a>
 		<span class="date">Published on {{ blog.published_date }}</span>	
 	</p>
 

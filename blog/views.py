@@ -39,24 +39,27 @@ def view_blog(request, username, blog_id):
 
 def edit_blog(request, username, blog_id = None):
     if request.method == 'POST':        
-        if blog_id: 
-            blog = Blog.objects.get(pk=blog_id)
-            form = BlogForm(request.POST, instance=blog)                                  
+        if blog_id is None:
+            blog = Blog()
+            blog.create_date = datetime.now() 
+            blog.username = username   
         else:
-            form = BlogForm(request.POST)
-            form.create_date = datetime.now()            
-            form.username = username            
-        form.modify_date = datetime.now()        
-        form.published_date = None
-        if form.is_valid():  
+            blog = Blog.objects.get(pk=blog_id)
+        form = BlogForm(request.POST, instance=blog)
+        if form.is_valid():          
+            blog.modify_date = datetime.now() #every edit changed the modify date
+            blog.published_date = None #since we have edited the blog we will need to re-publish it (maybe not the right thing to do)
+            #import logging; logging.debug(form.instance.__dict__)
             form.save()                
-            return redirect('blog.views.view_blog', username=username, blog_id=blog_id)
+            #import logging; logging.debug(form.instance.__dict__)
+            return redirect('blog.views.view_blog', username=username, blog_id=blog.pk)
     else:
         if blog_id is None : 
             form = BlogForm()
         else:
             blog = get_object_or_404(Blog, pk=blog_id)
             form = BlogForm(instance=blog)
+
     return render_to_response(  'blog/edit_blog.html'
                                 ,{
                                     'blog_id': blog_id,
@@ -64,7 +67,6 @@ def edit_blog(request, username, blog_id = None):
                                     'username':username,
                                  }
                                 ,context_instance=RequestContext(request))
-
 
 def delete_blog(request, username, blog_id):
     blog = get_object_or_404(Blog, pk=blog_id)

@@ -13,25 +13,24 @@
 
 	<p class="post-by">Posted by <a href="/{{username}}/">{{ username }}</a>
 	</p>
-
 	{% if blog_id %}
 	<form action="/{{username}}/{{blog_id}}/edit/" method="post">
 		{{ form.as_p }}
-		<input type="image" style='background:none;border:none;' src='/static/images/Edit.png' value="Submit" alt="Submit">
-		<a href="/{{username}}/{{blog_id}}/"><img style='background:none;border:none;' src='/static/images/Cancel.png'/></a>
+		<input type="image" style='background:none;border:none;' src='/static/images/Save.png' value="
+		Submit" alt="Submit">
+		<a href="/{{username}}/{{blog_id}}/"><img style='vertical-align:-3px;background:none;border:none;' src='/static/images/Cancel.png'/></a>
 	</form>		
 	{% else %}
 	<form action="/{{username}}/new/" method="post">
 		{{ form.as_p }}	
-		<input type="image" style='background:none;border:none;' src='/static/images/Edit.png' value="Submit" alt="Submit">
+		<input type="image" style='background:none;border:none;' src='/static/images/Save.png' value="Submit" alt="Submit">
 		<a href="/{{username}}/all/"><img style='background:none;border:none;' src='/static/images/Cancel.png'/></a>
 	</form>		
 	{% endif %}
-
 	
 	<p class="post-footer align-right">					
 
-		<a href="index.html" class="comments">Comments (7)</a>
+		<a href="" class="comments">Comments (7)</a>
 	</p>
 
 </div>
